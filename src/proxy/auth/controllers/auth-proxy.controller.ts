@@ -1,6 +1,6 @@
 import { Controller, Post, Get, Body, Param, HttpCode, HttpStatus } from '@nestjs/common';
-import { HttpProxyService } from '../common/services/http-proxy.service';
-import { appConfig } from '../config/app.config';
+import { HttpProxyService } from '../../../common/services/http-proxy.service';
+import { appConfig } from '../../../config/'app.config';
 import { ApiTags, ApiOperation, ApiBody, ApiResponse } from '@nestjs/swagger';
 
 @ApiTags('auth')

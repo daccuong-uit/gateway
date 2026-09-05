@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { AuthProxyController } from './auth-proxy.controller';
-import { HttpProxyService } from '../common/services/http-proxy.service';
+import { AuthProxyController } from './controllers/auth-proxy.controller';
+import { HttpProxyService } from '../../common/services/http-proxy.service';
 
 @Module({
   controllers: [AuthProxyController],

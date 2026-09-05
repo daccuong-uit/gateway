@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ThrottlerModule } from '@nestjs/throttler';
-import { AuthProxyModule } from './auth-proxy/auth-proxy.module';
-import { IdentityProxyModule } from './identity-proxy/identity-proxy.module';
-import { MediaProxyModule } from './media-proxy/media-proxy.module';
-import { SocialProxyModule } from './social-proxy/social-proxy.module';
+import { AuthProxyModule } from './proxy/auth/auth-proxy.module';
+import { IdentityProxyModule } from './proxy/identity/identity-proxy.module';
+import { MediaProxyModule } from './proxy/media/media-proxy.module';
+import { SocialProxyModule } from './proxy/social/social-proxy.module';
 import { HealthModule } from './health/health.module';
 import { appConfig } from './config/app.config';
 

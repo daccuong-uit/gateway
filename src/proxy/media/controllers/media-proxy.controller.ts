@@ -1,8 +1,8 @@
 import { Controller, Post, Get, Delete, Param, Req, Body, Res, Query, UseGuards } from '@nestjs/common';
-import { HttpProxyService } from '../common/services/http-proxy.service';
-import { appConfig } from '../config/app.config';
+import { HttpProxyService } from '../../../common/services/http-proxy.service';
+import { appConfig } from '../../../config/'app.config';
 import { ApiTags, ApiOperation, ApiConsumes, ApiBody, ApiResponse, ApiHeader, ApiQuery, ApiBearerAuth } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
 
 @ApiTags('media')
 @Controller('media')
