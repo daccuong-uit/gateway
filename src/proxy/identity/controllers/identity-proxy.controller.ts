@@ -43,7 +43,7 @@ export class IdentityProxyController {
   })
   @ApiResponse({ status: 201, description: 'Profile created' })
   createProfile(@Body() body: Record<string, unknown>, @Request() req: AuthenticatedRequest) {
-    return this.proxy.forward('POST', `${appConfig.IDENTITY_SERVICE_URL}/profiles`, {
+    return this.proxy.forward('POST', `${appConfig.IAM_SERVICE_URL}/profiles`, {
       body: { ...body, userId: req.user.sub },
     });
   }
@@ -56,7 +56,7 @@ export class IdentityProxyController {
   getMyProfile(@Request() req: AuthenticatedRequest) {
     return this.proxy.forward(
       'GET',
-      `${appConfig.IDENTITY_SERVICE_URL}/profiles/user/${req.user.sub}`,
+      `${appConfig.IAM_SERVICE_URL}/profiles/user/${req.user.sub}`,
     );
   }
 
@@ -66,7 +66,7 @@ export class IdentityProxyController {
   getProfileByUsername(@Param('username') username: string) {
     return this.proxy.forward(
       'GET',
-      `${appConfig.IDENTITY_SERVICE_URL}/profiles/username/${username}`,
+      `${appConfig.IAM_SERVICE_URL}/profiles/username/${username}`,
     );
   }
 
@@ -76,7 +76,7 @@ export class IdentityProxyController {
   getProfileByUserId(@Param('userId') userId: string) {
     return this.proxy.forward(
       'GET',
-      `${appConfig.IDENTITY_SERVICE_URL}/profiles/user/${userId}`,
+      `${appConfig.IAM_SERVICE_URL}/profiles/user/${userId}`,
     );
   }
 
@@ -98,7 +98,7 @@ export class IdentityProxyController {
   updateProfile(@Body() body: unknown, @Request() req: AuthenticatedRequest) {
     return this.proxy.forward(
       'PATCH',
-      `${appConfig.IDENTITY_SERVICE_URL}/profiles/user/${req.user.sub}`,
+      `${appConfig.IAM_SERVICE_URL}/profiles/user/${req.user.sub}`,
       { body },
     );
   }

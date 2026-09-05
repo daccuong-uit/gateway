@@ -6,8 +6,7 @@ const GatewayEnvSchema = BaseEnvSchema.extend({
   PORT: z.coerce.number().default(3000), // Override default if needed, but we'll use GATEWAY_PORT
   GATEWAY_PORT: z.coerce.number().default(3000),
   JWT_ACCESS_SECRET: z.string().min(32),
-  AUTH_SERVICE_URL: z.string().url().default('http://localhost:3001/api/v1'),
-  IDENTITY_SERVICE_URL: z.string().url().default('http://localhost:3002/api/v1'),
+  IAM_SERVICE_URL: z.string().url().default('http://localhost:3001'),
   MEDIA_SERVICE_URL: z.string().url().default('http://localhost:3003/api/v1'),
   SOCIAL_SERVICE_URL: z.string().url().default('http://localhost:3004/api/v1'),
   CORS_ORIGIN: z.string().default('*'),

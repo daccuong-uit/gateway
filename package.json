@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "build": "nest build",
-    "dev": "dotenv -e ../../.env -- nest start --watch",
-    "start": "dotenv -e ../../.env -- node dist/main",
+    "dev": "dotenv -e .env -- nest start --watch",
+    "start": "dotenv -e .env -- node dist/main",
     "lint": "eslint src --ext .ts",
     "test": "jest"
   },
@@ -13,7 +13,9 @@
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-fastify": "^10.0.0",
+    "@nestjs/swagger": "^7.0.0",
     "@nestjs/throttler": "^5.0.0",
+    "@fastify/static": "^7.0.4",
     "@daccuong-uit/platform-logger": "^1.0.0",
     "@daccuong-uit/platform-http-common": "^1.0.1",
     "@daccuong-uit/platform-config": "^1.0.0",
@@ -31,6 +33,7 @@
     "@nestjs/cli": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
     "@types/node": "^20.0.0",
+    "dotenv-cli": "^11.0.0",
     "typescript": "^5.0.0"
   }
 }
