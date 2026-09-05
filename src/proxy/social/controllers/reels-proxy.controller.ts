@@ -14,7 +14,7 @@ import {
 } from '@nestjs/common';
 import { HttpProxyService } from '../../../common/services/http-proxy.service';
 import { JwtAuthGuard, OptionalJwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
-import { appConfig } from '../../../config/'app.config';
+import { appConfig } from '../../../config/app.config';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 
 @ApiTags('reels')

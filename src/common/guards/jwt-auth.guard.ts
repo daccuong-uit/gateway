@@ -4,7 +4,7 @@ import {
   ExecutionContext,
   UnauthorizedException,
 } from '@nestjs/common';
-import { JwtService, AuthErrorCode } from '@platform/auth-sdk';
+import { JwtService, AuthErrorCode } from '@daccuong-uit/platform-security-sdk';
 import { appConfig } from '../../config/app.config';
 
 const jwtService = new JwtService({

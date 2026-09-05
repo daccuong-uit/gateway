@@ -14,8 +14,8 @@ import {
 } from '@nestjs/common';
 import { HttpProxyService } from '../../../common/services/http-proxy.service';
 import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
-import { appConfig } from '../../../config/'app.config';
-import { AccessTokenPayload } from '@platform/auth-sdk';
+import { appConfig } from '../../../config/app.config';
+import { AccessTokenPayload } from '@daccuong-uit/platform-security-sdk';
 import { ApiTags, ApiOperation, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 
 interface AuthenticatedRequest {

@@ -1,7 +1,7 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { fetch } from 'undici';
-import { createLogger } from '@platform/logger';
-import { ApiSuccessResponse, ApiErrorResponse } from '@platform/common';
+import { createLogger } from '@daccuong-uit/platform-logger';
+import { ApiSuccessResponse, ApiErrorResponse } from '@daccuong-uit/platform-http-common';
 
 const logger = createLogger({ service: 'gateway:http' });
 
