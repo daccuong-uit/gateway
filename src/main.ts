@@ -32,7 +32,7 @@ async function bootstrap() {
   SwaggerModule.setup('docs', app, document);
 
   // Align gateway routes with other services: expose under /api/v1/*
-  app.setGlobalPrefix('api/v1');
+  app.setGlobalPrefix('api/v1', { exclude: ['health'] });
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   await app.register(require('@fastify/multipart'));
