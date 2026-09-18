@@ -9,6 +9,7 @@ const GatewayEnvSchema = BaseEnvSchema.extend({
   IAM_SERVICE_URL: z.string().url().default('http://localhost:3001/api/v1'),
   MEDIA_SERVICE_URL: z.string().url().default('http://localhost:3003/api/v1'),
   SOCIAL_SERVICE_URL: z.string().url().default('http://localhost:3004/api/v1'),
+  STORIES_SERVICE_URL: z.string().url().default('http://localhost:3005/api/v1'),
   CORS_ORIGIN: z.string().default('*'),
   RATE_LIMIT_TTL: z.coerce.number().default(60),
   RATE_LIMIT_LIMIT: z.coerce.number().default(100),
