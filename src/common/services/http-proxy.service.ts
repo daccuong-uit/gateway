@@ -2,6 +2,7 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { fetch } from 'undici';
 import { createLogger } from '@daccuong-uit/platform-logger';
 import { ApiSuccessResponse, ApiErrorResponse } from '@daccuong-uit/platform-http-common';
+import { requestAuthContext } from './request-auth-context';
 
 const logger = createLogger({ service: 'gateway:http' });
 
@@ -26,7 +27,11 @@ export class HttpProxyService {
 
     logger.info(`Forwarding ${method} → ${url}`);
 
-    const fetchHeaders: Record<string, string> = { ...headers };
+    const authorization = requestAuthContext.getStore()?.authorization;
+    const fetchHeaders: Record<string, string> = {
+      ...headers,
+      ...(authorization ? { Authorization: authorization } : {}),
+    };
     const requestBody = isFormData ? body : (body != null ? JSON.stringify(body) : undefined);
 
     if (!isFormData && body != null) {
@@ -87,7 +92,10 @@ export class HttpProxyService {
 
   async pipeForward(url: string, res: any): Promise<void> {
     logger.info(`Piping GET → ${url}`);
-    const response = await fetch(url);
+    const authorization = requestAuthContext.getStore()?.authorization;
+    const response = await fetch(url, {
+      headers: authorization ? { Authorization: authorization } : undefined,
+    });
 
     if (!response.ok) {
       throw new HttpException('Upstream streaming error', HttpStatus.BAD_GATEWAY);

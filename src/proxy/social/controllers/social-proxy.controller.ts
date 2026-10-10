@@ -15,11 +15,11 @@ import {
 import { HttpProxyService } from '../../../common/services/http-proxy.service';
 import { JwtAuthGuard, OptionalJwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
 import { appConfig } from '../../../config/app.config';
-import { AccessTokenPayload } from '@daccuong-uit/platform-security-sdk';
+import type { UserPrincipal } from '../../auth/services/oidc-bff.service';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 
 interface AuthenticatedRequest {
-  user: AccessTokenPayload;
+  user: UserPrincipal;
 }
 
 @ApiTags('users')

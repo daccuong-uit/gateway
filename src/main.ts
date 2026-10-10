@@ -3,7 +3,7 @@ initTracing({ serviceName: 'gateway' });
 
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
-import { ValidationPipe, BadRequestException } from '@nestjs/common';
+import { ValidationPipe, BadRequestException, RequestMethod } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { appConfig } from './config/app.config';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
@@ -32,7 +32,20 @@ async function bootstrap() {
   SwaggerModule.setup('docs', app, document);
 
   // Align gateway routes with other services: expose under /api/v1/*
-  app.setGlobalPrefix('api/v1', { exclude: ['health'] });
+  app.setGlobalPrefix('api/v1', {
+    exclude: [
+      'health',
+      { path: 'api/auth/login', method: RequestMethod.GET },
+      { path: 'api/auth/callback', method: RequestMethod.GET },
+      { path: 'api/auth/session', method: RequestMethod.GET },
+      { path: 'api/auth/logout', method: RequestMethod.GET },
+      { path: 'api/auth/logout', method: RequestMethod.POST },
+      { path: 'api/auth/backchannel-logout', method: RequestMethod.POST },
+    ],
+  });
+
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  await app.register(require('@fastify/formbody'));
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   await app.register(require('@fastify/multipart'));

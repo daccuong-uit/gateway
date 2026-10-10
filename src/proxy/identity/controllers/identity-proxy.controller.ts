@@ -13,11 +13,11 @@ import {
 import { HttpProxyService } from '../../../common/services/http-proxy.service';
 import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
 import { appConfig } from '../../../config/app.config';
-import { AccessTokenPayload } from '@daccuong-uit/platform-security-sdk';
+import type { UserPrincipal } from '../../auth/services/oidc-bff.service';
 import { ApiTags, ApiOperation, ApiBody, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 
 interface AuthenticatedRequest {
-  user: AccessTokenPayload;
+  user: UserPrincipal;
 }
 
 @ApiTags('profiles')
@@ -42,9 +42,9 @@ export class IdentityProxyController {
     },
   })
   @ApiResponse({ status: 201, description: 'Profile created' })
-  createProfile(@Body() body: Record<string, unknown>, @Request() req: AuthenticatedRequest) {
+  createProfile(@Body() body: Record<string, unknown>) {
     return this.proxy.forward('POST', `${appConfig.IAM_SERVICE_URL}/profiles`, {
-      body: { ...body, userId: req.user.sub },
+      body: { displayName: body.displayName },
     });
   }
 
@@ -53,10 +53,10 @@ export class IdentityProxyController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get current user profile' })
   @ApiResponse({ status: 200, description: 'Returns profile data' })
-  getMyProfile(@Request() req: AuthenticatedRequest) {
+  getMyProfile() {
     return this.proxy.forward(
       'GET',
-      `${appConfig.IAM_SERVICE_URL}/profiles/user/${req.user.sub}`,
+      `${appConfig.IAM_SERVICE_URL}/profiles/me`,
     );
   }
 
