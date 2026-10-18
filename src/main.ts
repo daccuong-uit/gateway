@@ -8,6 +8,8 @@ import { AppModule } from './app.module';
 import { appConfig } from './config/app.config';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AllExceptionsFilter, TransformInterceptor } from '@daccuong-uit/platform-http-common';
+import { OidcBffService } from './proxy/auth/services/oidc-bff.service';
+import { requestAuthContext } from './common/services/request-auth-context';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -17,6 +19,15 @@ async function bootstrap() {
 
   // Allow all content types (for streaming uploads)
   const fastify = app.getHttpAdapter().getInstance();
+  const oidcBff = app.get(OidcBffService);
+  fastify.addHook('onRequest', (request: any, _reply: any, done: (error?: Error) => void) => {
+    oidcBff.getRequestIdentity(request.headers.cookie)
+      .then((identity) => {
+        request.user = identity.user;
+        requestAuthContext.run(identity, done);
+      })
+      .catch(done);
+  });
   fastify.addContentTypeParser('*', (req: any, payload: any, done: any) => {
     done(null, payload);
   });
@@ -44,9 +55,8 @@ async function bootstrap() {
     ],
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  await app.register(require('@fastify/formbody'));
-
+  // Fastify/Nest already registers application/x-www-form-urlencoded.
+  // Registering @fastify/formbody again causes FST_ERR_CTP_ALREADY_PRESENT.
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   await app.register(require('@fastify/multipart'));
 
